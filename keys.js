@@ -1,0 +1,1 @@
+export const mongoURI = 'mongodb://ahmedgomaa:independant2@ds029277.mlab.com:29277/grocerooo'
