@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import {useHistory} from "react-router-dom";
 import {connect} from 'react-redux'
 import * as actions from '../actions'
+import './css/Login.css'
 
 
 const Login = (props) => {
@@ -41,15 +42,17 @@ const Login = (props) => {
 
     return (
         <div className={'login'}>
-            <form onSubmit={handleFormSubmit} action="login__form">
-                <div className="login__username">
-                    <input type="text" name={'username'} value={username} onChange={handleUsernameChange}/>
+            <form onSubmit={handleFormSubmit} className="login__form">
+                <div className="login__field">
+                    <input placeholder={'Username'} type="text" name={'username'} value={username} onChange={handleUsernameChange}/>
                 </div>
-                <div className="login__password">
-                    <input type="text" name={'password'} value={password} onChange={handlePasswordChange}/>
+                <div className="login__field">
+                    <input placeholder={'Password'} type="text" name={'password'} value={password} onChange={handlePasswordChange}/>
                 </div>
 
-                <button type={'submit'}>Login</button>
+                <div className="login__field">
+                    <button type={'submit'}>Login</button>
+                </div>
             </form>
         </div>
     );

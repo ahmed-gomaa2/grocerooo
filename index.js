@@ -28,28 +28,32 @@ passport.deserializeUser(User.deserializeUser())
 
 mongoose.connect(mongoURI)
 
-app.post('/upload/avatar', upload.single('file'), (req, res) => {
-    res.json(req.body)
-
-    // res.redirect('/')
+app.post('/api/avatar', upload.single('file'), (req, res) => {
+    res.send(req.file)
 })
 
 app.post("/api/register", function(req, res){
-    const newUser = new User({
-        username: req.body.username
-    });
-
-    console.log(req.password)
-
-    User.register(newUser, req.body.password, function(err, user){
-        if(err){
-            res.json(err)
+    User.findOne({email: req.body.email}).then(user => {
+        if(user) {
+            res.send({message: 'A user with the same email exists'})
+        }else {
+            const newUser = new User({
+                username: req.body.username,
+                email: req.body.email,
+                file: req.body.file
+            });
+            User.register(newUser, req.body.password, function(err, user){
+                if(err){
+                    res.json(err)
+                }
+                passport.authenticate("local")(req, res, function(){
+                    res.send(req.user)
+                    res.redirect('/')
+                });
+            });
         }
-        passport.authenticate("local")(req, res, function(){
-            res.send(req.user)
-            res.redirect('/')
-        });
-    });
+    })
+
 });
 
 app.post('/api/login', passport.authenticate('local', ), (req, res) => {
