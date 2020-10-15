@@ -10,9 +10,12 @@ const Signup = (props) => {
     const [username, setUsername] = React.useState('')
     const [password, setPassword] = React.useState('')
     const history = useHistory()
-    const [message, setMessage] = React.useState(null)
     const [email, setEmail] = React.useState('')
     const [image, setImage] = React.useState(null)
+    const [errors, setErrors] = React.useState({})
+    const [mongoDBError, setMongoDBError] = React.useState(null)
+
+
 
     const handleUsernameChange = (e) => {
         setUsername(e.target.value)
@@ -32,10 +35,53 @@ const Signup = (props) => {
         }
     }
 
+    const handleValidations = () => {
+        let formIsValid = true;
+        let errorsOBJ = {}
+
+        if(!username) {
+            formIsValid = false
+            errorsOBJ['username'] = 'Enter you username'
+        }
+        if(!password) {
+            formIsValid = false
+            errorsOBJ['password'] = 'Enter your password'
+        }
+        if(!email) {
+            formIsValid = false
+            errorsOBJ['email'] = 'Enter your email'
+        }
+        if(!image) {
+            formIsValid = false
+            errorsOBJ['image'] = 'Select your Image'
+        }
+        if(typeof email !== "undefined"){
+            let lastAtPos = email.lastIndexOf('@');
+            let lastDotPos = email.lastIndexOf('.');
+
+            if (!(lastAtPos < lastDotPos && lastAtPos > 0 && email.indexOf('@@') == -1 && lastDotPos > 2 && email.length - lastDotPos) > 2) {
+                formIsValid = false;
+                errorsOBJ['email'] = 'your email is invalid'
+            }
+        }
+
+        setErrors(errorsOBJ)
+        return formIsValid
+    }
+
+    const handleMongoDBError = () => {
+        let message;
+        if(props.user?.message) {
+            message = props.user.message
+        }
+        setMongoDBError(message)
+        return message;
+    }
+
     const handleFormSubmit = (e) => {
         e.preventDefault()
 
-        if(image) {
+        if(handleValidations() && image) {
             const imgForm = new FormData()
             imgForm.append('file', image, image.name)
 
@@ -46,7 +92,6 @@ const Signup = (props) => {
                     'Content-Type': `multipart/form-data; boundary=${imgForm._boundary}`
                 }
             }).then(res => {
-                console.log(res.data)
                 const info = {
                     username: username,
                     password: password,
@@ -59,18 +104,13 @@ const Signup = (props) => {
 
         }
 
-
-        setEmail('')
-        setUsername('')
-        setPassword('')
-        setImage(null)
     }
 
     useEffect(() => {
         if(!props.user) {
             console.log("Wait for it")
         }else if(!props.user.username && props.user.message) {
-            setMessage(props.user.message)
+            handleMongoDBError()
         }else if(props.user.username){
             history.push('/')
         }
@@ -79,21 +119,29 @@ const Signup = (props) => {
     return (
         <div className={'signup'}>
             <form onSubmit={handleFormSubmit} className="signup__form" autoComplete={'off'}>
+                <h4>{mongoDBError}</h4>
                 <div className="signup__field">
                     <label htmlFor="">Your Name:</label>
                     <input type="text" placeholder={'Your Name'} autoComplete={'off'} value={username} onChange={handleUsernameChange}/>
+                    <p>{errors['username']}</p>
                 </div>
                 <div className="signup__field">
                     <label htmlFor="">Your Email:</label>
                     <input type="text" autoComplete={'off'} placeholder={'E-mail'} value={email} onChange={handleEmailChange}/>
+                    <p>{errors['password']}</p>
+
                 </div>
                 <div className="signup__field">
                     <label htmlFor="">Password:</label>
                     <input type="password" autoComplete={'off'} placeholder={'Password'} value={password} onChange={handlePasswordChange}/>
+                    <p>{errors['email']}</p>
+
                 </div>
 
-                <div className="signup__password">
-                    <input type="file" name={'file'} onChange={handleAvatarChange}/>
+                <div className="signup__image">
+                    <input type="file" name={'file'} className={'custom-file-input'} onChange={handleAvatarChange}/>
+                    <p>{errors['file']}</p>
+
                 </div>
                 <div className="signup__field">
                     <button type={'submit'}>Sign Up</button>
