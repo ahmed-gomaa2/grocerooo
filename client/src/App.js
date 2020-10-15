@@ -5,6 +5,7 @@ import {Route, BrowserRouter} from "react-router-dom";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Header from "./components/Header";
+import Profile from "./components/Profile";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route exact path={'/'} component={Home} />
           <Route exact path={'/register'} component={Signup} />
           <Route exact path={'/login'} component={Login} />
+          <Route exact path={'/profile'} component={Profile}/>
       </BrowserRouter>
     </div>
   );

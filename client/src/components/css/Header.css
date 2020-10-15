@@ -7,6 +7,7 @@
     align-items: center;
     background-color: #373F46;
     color: white;
+    z-index: 1000;
 }
 
 .header__left {
@@ -105,4 +106,20 @@
 
 .active div:nth-child(3) {
     transform: rotate(-45deg);
+}
+
+.header__avatar {
+    cursor: pointer;
+}
+
+.header__avatar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+}
+
+.header__avatar > p {
+    margin-right: 5px;
 }

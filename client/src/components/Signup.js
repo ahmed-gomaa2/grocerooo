@@ -51,10 +51,6 @@ const Signup = (props) => {
             formIsValid = false
             errorsOBJ['email'] = 'Enter your email'
         }
-        if(!image) {
-            formIsValid = false
-            errorsOBJ['image'] = 'Select your Image'
-        }
         if(typeof email !== "undefined"){
             let lastAtPos = email.lastIndexOf('@');
             let lastDotPos = email.lastIndexOf('.');
@@ -81,29 +77,36 @@ const Signup = (props) => {
     const handleFormSubmit = (e) => {
         e.preventDefault()
 
-        if(handleValidations() && image) {
-            const imgForm = new FormData()
-            imgForm.append('file', image, image.name)
+        // if(handleValidations() && image) {
+        //     const imgForm = new FormData()
+        //     imgForm.append('file', image, image.name)
+        //
+        //     axios.post('/api/avatar', imgForm, {
+        //         headers: {
+        //             'accept': 'application/json',
+        //             'Accept-Language': 'en-US,en;q=0.8',
+        //             'Content-Type': `multipart/form-data; boundary=${imgForm._boundary}`
+        //         }
+        //     }).then(res => {
+        //         const info = {
+        //             username: username,
+        //             password: password,
+        //             email: email,
+        //             file: res.data.filename
+        //         }
+        //         props.createUser(info)
+        //     })
+        // }
 
-            axios.post('/api/avatar', imgForm, {
-                headers: {
-                    'accept': 'application/json',
-                    'Accept-Language': 'en-US,en;q=0.8',
-                    'Content-Type': `multipart/form-data; boundary=${imgForm._boundary}`
-                }
-            }).then(res => {
-                const info = {
-                    username: username,
-                    password: password,
-                    email: email,
-                    file: res.data.filename
-                }
-                props.createUser(info)
-            })
-
-
+        if(handleValidations()) {
+            const info = {
+                username: username,
+                password: password,
+                email: email,
+                // file: res.data.filename
+            }
+            props.createUser(info)
         }
-
     }
 
     useEffect(() => {
@@ -119,30 +122,25 @@ const Signup = (props) => {
     return (
         <div className={'signup'}>
             <form onSubmit={handleFormSubmit} className="signup__form" autoComplete={'off'}>
-                <h4>{mongoDBError}</h4>
+                <h4 style={{color: 'red'}}>{mongoDBError}</h4>
                 <div className="signup__field">
                     <label htmlFor="">Your Name:</label>
                     <input type="text" placeholder={'Your Name'} autoComplete={'off'} value={username} onChange={handleUsernameChange}/>
-                    <p>{errors['username']}</p>
+                    <p style={{color: 'red'}}>{errors['username']}</p>
                 </div>
                 <div className="signup__field">
                     <label htmlFor="">Your Email:</label>
                     <input type="text" autoComplete={'off'} placeholder={'E-mail'} value={email} onChange={handleEmailChange}/>
-                    <p>{errors['password']}</p>
+                    <p style={{color: 'red'}}>{errors['email']}</p>
 
                 </div>
                 <div className="signup__field">
                     <label htmlFor="">Password:</label>
                     <input type="password" autoComplete={'off'} placeholder={'Password'} value={password} onChange={handlePasswordChange}/>
-                    <p>{errors['email']}</p>
+                    <p style={{color: 'red'}}>{errors['password']}</p>
 
                 </div>
 
-                <div className="signup__image">
-                    <input type="file" name={'file'} className={'custom-file-input'} onChange={handleAvatarChange}/>
-                    <p>{errors['file']}</p>
-
-                </div>
                 <div className="signup__field">
                     <button type={'submit'}>Sign Up</button>
                 </div>

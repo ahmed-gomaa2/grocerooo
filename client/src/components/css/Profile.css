@@ -1,0 +1,91 @@
+.profile {
+    height: calc(100vh - 60px);
+    display: flex;
+    flex-direction: column;
+    padding: 20px 30px;
+}
+
+.profile__header {
+    display: flex;
+    flex-direction: row;
+}
+
+.profile__avatar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile__avatar > .MuiAvatar-root {
+    height: 70px !important;
+    width: 70px !important;
+}
+
+ .MuiSvgIcon-root {
+    margin: 4px;
+    cursor: pointer;
+    font-size: 18px !important;
+}
+
+.profile__photoDetail {
+    margin: 6px 20px;
+    display: flex;
+    flex-direction: row;
+}
+
+.profile__edit {
+    margin-left: auto;
+    align-items: center;
+    flex-direction: row;
+    display: flex;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all ease-in-out .2s;
+}
+
+.profile__body {
+    display: flex;
+    flex-direction: column;
+    background-color: red;
+}
+
+
+.custom-file-input {
+    color: transparent;
+}
+.custom-file-input:focus {
+    outline: none;
+}
+
+.custom-file-input::-webkit-file-upload-button {
+    visibility: hidden;
+}
+.custom-file-input::before {
+    content: 'upload Photo';
+    color: black;
+    display: inline-block;
+    background: white;
+    border: 1px solid #999;
+    border-radius: 3px;
+    padding: 5px 8px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+    text-shadow: 1px 1px #fff;
+    font-weight: 700;
+    font-size: 10pt;
+    margin-left: auto;
+    transition: all ease-in-out .2s;
+}
+.custom-file-input:hover::before {
+    background-color: black;
+    color: white;
+}
+.custom-file-input:active {
+    outline: 0;
+}
+.custom-file-input:active::before {
+    background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}

@@ -8,7 +8,7 @@ import multer from "multer";
 
 const conn = mongoose.createConnection(mongoURI)
 
-let gfs;
+export let gfs;
 
 conn.once('open', () => {
     gfs = Grid(conn.db, mongoose.mongo)
@@ -35,6 +35,8 @@ const storage = new GridFsStorage({
         })
     }
 })
+
+
 
 export const upload = multer({storage})
 
