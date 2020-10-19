@@ -215,6 +215,7 @@ app.get('/api/user/lists', (req, res) => {
 })
 
 if(process.env.NODE_ENV === 'production') {
+    const __dirname = path.resolve(path.dirname(''))
     app.use(express.static(__dirname + 'client/build'))
 
     app.get('*', (req, res)=> {
