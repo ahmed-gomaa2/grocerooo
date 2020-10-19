@@ -10,6 +10,7 @@ import {mongoURI} from "./keys.js";
 import mongoose from 'mongoose'
 import {gfs} from './models/avatar.js'
 import List from './models/Lists.js'
+import path from 'path'
 
 const app = express()
 
@@ -163,7 +164,6 @@ app.get('/api/user/lists', (req, res) => {
 if(process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'))
 
-    const path= require('path')
     app.get('*', (req, res)=> {
         res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
     })
