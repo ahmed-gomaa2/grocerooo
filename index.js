@@ -9,8 +9,12 @@ import session from 'express-session'
 import {mongoURI} from "./keys.js";
 import mongoose from 'mongoose'
 import {gfs} from './models/avatar.js'
+import {veg} from './models/vegetables.js'
+import {uploadVeg} from './models/vegetables.js'
+import vegetables from './models/Vegetable.js'
 import List from './models/Lists.js'
 import path from 'path'
+import Vegetables from './models/Vegetable.js';
 
 const app = express()
 
@@ -67,9 +71,58 @@ app.post('/api/avatar', upload.single('file'), (req, res) => {
     res.send(req.file)
 })
 
+app.post('/api/upload/vegetable', uploadVeg.single('file'), (req, res) => {
+    res.send(req.file)
+})
+
+app.post('/api/create/vegetable', (req, res) => {
+    const newVegetable = {
+        name: req.body.name,
+        price: req.body.price,
+        duration: req.body.duration,
+        image: req.body.file
+    }
+
+    Vegetables.create(newVegetable, (err, vegetable) => {
+        if(err) {
+            console.log(err)
+        }else {
+            res.send(vegetable)
+        }
+    })
+})
+
+app.get('/api/getvegetables', (req, res) => {
+    Vegetables.find({}).exec((err, vegetables) => {
+        if(err) {
+            console.log(err)
+        }else {
+            res.send(vegetables)
+        }
+    })
+})
+
+app.get('/api/vegetable/:filename', (req, res) => {
+    veg.files.findOne({filename: req.params.filename}, (err, file) => {
+        if(!file || file.length === 0) {
+            res.status(404).json({
+                err: 'no file exists'
+            })
+        }
+
+        if(file.contentType === 'image/jpeg' || file.contentType === 'image/png' || contentType === 'image/jpg') {
+            const readStream = veg.createReadStream(file.filename)
+            readStream.pipe(res)
+        }else {
+            res.status(404).json({
+                err: 'not an image'
+            })
+        }
+    })
+})
+
 
 app.post('/api/edit', function (req, res, next) {
-
     User.update({_id: req.user._id}, {file: req.body.file}, (err) => {
         if (err) console.log(err);
         res.send(req.user)

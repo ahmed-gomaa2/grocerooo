@@ -20,7 +20,7 @@ const VegetableCard = ({vegetable, openList, addedToList}) => {
     }
     return (
         <div className='vegetables__card'>
-            <img src={vegetable.image} />
+            <img src={`/api/vegetable/${vegetable.image}`} />
             <h3>{vegetable.name}</h3>
             <p>{vegetable.price}</p>
             <span>{vegetable.duration}</span>

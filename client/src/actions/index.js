@@ -60,3 +60,21 @@ export const gettingListItems = items => dispatch => {
         payload: items
     })
 }
+
+export const createVegetable = info => async dispatch => {
+    const res = await axios.post('/api/create/vegetable', info)
+
+    dispatch({
+        type: 'CREATE_VEGETABLE',
+        payload: res.data
+    })
+}
+
+export const gettingVegetables = () => async dispatch => {
+    const res = await axios.get('/api/getvegetables')
+
+    dispatch({
+        type: 'GETTING_ALL_VEGETABLES',
+        payload: res.data
+    })
+}

@@ -13,6 +13,7 @@ import Vegetables from './components/storeComponents/Vegetables'
 import List from './components/List'
 import ListItems from './components/storeComponents/ListItems'
 import Fruits from './components/storeComponents/Fruits'
+import CreateVegetable from './components/CreateVegetable';
 
 function App(props) {
 
@@ -29,7 +30,11 @@ function App(props) {
 
   useEffect(() => {
     props.gettingUserLists()
-}, [props.user])
+  }, [props.user])
+
+  useEffect(() => {
+    props.gettingVegetables()
+  }, [])
 
   return (
     <div className="app">
@@ -43,6 +48,7 @@ function App(props) {
           <Route exact path='/vegetables' component={() => <Vegetables listOpen={list} openList={openList} />} />
           <Route exact path='/fruits' component={() => <Fruits listOpen={list} openList={openList} />} />
           <Route exact path='/list/items' component={() => <ListItems />} />
+          <Route exact path='/create/vegetable' component={()=> <CreateVegetable />} />
           {
             props.user?.username && <Route exact path={'/profile'} component={Profile}/>
           }
@@ -53,7 +59,8 @@ function App(props) {
 
 const mapStateToProps = state => {
   return {
-    user: state.user
+    user: state.user,
+    vegetables: state.vegetables
   }
 }
 
