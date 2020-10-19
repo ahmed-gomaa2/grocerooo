@@ -13,10 +13,20 @@
 .header__left {
     flex: 1;
     display: flex;
+    align-items: center;
+}
+
+.header__menuIcon {
+    font-size: 20px !important;
+}
+
+.header__left > a {
+    text-decoration: none;
+    color: white;
 }
 
 .header__logo {
-    padding: 10px;
+    margin: 0 10px;
 }
 
 .header__right {
@@ -28,8 +38,9 @@
 .header__options {
     display: flex;
     justify-content: space-around;
-
     transition: all ease-in-out .4s;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
 }
 
 .header__option {
@@ -122,4 +133,52 @@
 
 .header__avatar > p {
     margin-right: 5px;
+}
+
+.header__dropDown {
+    position: relative;
+    display: inline-block;
+}
+
+.header__dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    /* padding: 16px; */
+    font-size: 16px;
+    border: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.header__lists {
+    display: none;
+    position: absolute;
+    background-color: red;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.header__lists a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.header__lists a:hover {
+    background-color: lightcoral;
+}
+
+
+
+.header__dropDown:hover .header__lists {
+    display: block;
+}
+
+.header__dropDown:hover .header__dropbtn {
+    background-color: #3e8e41;
 }

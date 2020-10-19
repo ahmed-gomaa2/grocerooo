@@ -1,0 +1,66 @@
+.list {
+    position: fixed;
+    top: 50%;
+    right: -50%;
+    transform: translate(55%, -55%);
+    z-index: 500;
+    background-color: white;
+    width: 25%;
+    height: 200px;
+    border-radius: 3px;
+    padding: 30px;
+    transition: all ease-in-out .2s;
+}
+
+.list__form {
+    margin: 20px 0; 
+
+}
+
+.list__form > input {
+    height: 30px;
+}
+
+.list__form > button {
+    height: 36px;
+    width: 100px;
+    cursor: pointer;
+    background-color: lightgreen;
+    border: none;
+    transition: all ease-in-out .2s;
+}
+
+.list__form > button:hover {
+    background-color: green;
+    color: white;
+}
+
+
+
+.list__adding {
+    right: 50%;
+}
+
+@media only screen and (max-width: 1140px) {
+    .list {
+        width: 35%;
+    }
+}
+
+@media only screen and (max-width: 820px) {
+    .list {
+        width: 45%;
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .list {
+        width: 55%;
+    }
+}
+
+@media only screen and (max-width: 520px) {
+    .list {
+        width: 95%;
+    }
+}

@@ -9,6 +9,7 @@ import session from 'express-session'
 import {mongoURI} from "./keys.js";
 import mongoose from 'mongoose'
 import {gfs} from './models/avatar.js'
+import List from './models/Lists.js'
 
 const app = express()
 
@@ -89,6 +90,72 @@ app.get('/api/image/:filename', (req, res) => {
             res.status(404).json({
                 err: 'not an image'
             })
+        }
+    })
+})
+
+app.post('/api/add/list', (req, res) => {
+    List.findOne({name: req.body.name}, (err, list) => {
+        console.log(list)
+        if(list && list.author.username === req.user.username) {
+            List.update({name: req.body.name}, {$push: {products: req.body.product}},(err, list) => {
+                if(err){
+                    res.send('some thing went wrong')
+                }else{
+                    res.send(list)
+                }
+            })
+        }else if(list && list.author.username !== req.user.username) {
+            const newList = {
+                name: req.body.name,                                                                    
+                author: {
+                    id: req.user._id,
+                    username: req.user.username
+                },
+                products: [{
+                    name:req.body.product.name,
+                    amount: req.body.product.amount
+                }]
+            }
+            List.create(newList, (err, list) => {
+                if(err) {
+                    console.log(err)
+                }else {
+                    res.send(list)
+                }
+            })
+            
+        }else if(!list) {
+            const newList = {
+                name: req.body.name,
+                author: {
+                    id: req.user._id,
+                    username: req.user.username
+                },
+                products: [{
+                    name:req.body.product.name,
+                    amount: req.body.product.amount
+                }]
+            }
+            List.create(newList, (err, list) => {
+                if(err) {
+                    console.log(err)
+                }else {
+                    res.send(list)
+                }
+            })
+        }
+    })
+    
+})
+
+app.get('/api/user/lists', (req, res) => {
+    List.find({'author.username': req.user.username}, (err, lists) => {
+        if(err) {
+            res.status(404).send("can't find lists")
+        }else{
+            console.log(lists)
+            res.json(lists)
         }
     })
 })

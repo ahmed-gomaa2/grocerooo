@@ -71,8 +71,14 @@ const Profile = (props) => {
             </div>
             <div className="profile__body">
                 <div className="profile__bodyRow">
+                    <p>Username:</p>
                     <h3>{props.user?.username}</h3>
                 </div>
+                <div className="profile__bodyRow">
+                    <p>Email:</p>
+                    <h3>{props.user?.email}</h3>
+                </div>
+
             </div>
         </div>
     );

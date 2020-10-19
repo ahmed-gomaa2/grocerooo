@@ -10,6 +10,7 @@ const Login = (props) => {
     const [password, setPassword] = React.useState('')
     const history = useHistory()
     const [message, setMessage] = React.useState(null)
+    const [errors, setErrors] = React.useState({})
 
     const handleUsernameChange = (e) => {
         setUsername(e.target.value)
@@ -19,16 +20,37 @@ const Login = (props) => {
         setPassword(e.target.value)
     }
 
-    const handleFormSubmit = (e) => {
-        e.preventDefault()
-        const info = {
-            username: username,
-            password: password
+    const formValidation = () => {
+        let errors = {}
+        let formIsValid = true;
+
+        if(!username) {
+            formIsValid = false;
+            errors['username'] = '!Enter your username'
         }
 
-        props.loginUser(info)
+        if(!password) {
+            formIsValid = false;
+            errors['password'] = '!Enter your password'
+        }
 
+        setErrors(errors)
+        return formIsValid
     }
+
+
+    const handleFormSubmit = (e) => {
+        e.preventDefault()
+        if(formValidation()) {
+            const info = {
+                username: username,
+                password: password
+            }
+
+            props.loginUser(info)
+        }
+    }
+
 
     useEffect(() => {
         if(!props.user) {
@@ -43,11 +65,14 @@ const Login = (props) => {
     return (
         <div className={'login'}>
             <form onSubmit={handleFormSubmit} className="login__form">
+                <p>{message}</p>
                 <div className="login__field">
                     <input placeholder={'Username'} type="text" name={'username'} value={username} onChange={handleUsernameChange}/>
+                    <p style={{color: 'red'}}>{errors['username']}</p>
                 </div>
                 <div className="login__field">
-                    <input placeholder={'Password'} type="text" name={'password'} value={password} onChange={handlePasswordChange}/>
+                    <input placeholder={'Password'} type="password" name={'password'} value={password} onChange={handlePasswordChange}/>
+                    <p style={{color: 'red'}}>{errors['password']}</p>
                 </div>
 
                 <div className="login__field">
