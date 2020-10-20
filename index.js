@@ -8,7 +8,6 @@ const LocalStrategy = require('passport-local')
 const session = require('express-session')
 const mongoURI = require("./keys.js");
 const mongoose = require('mongoose')
-const gfs = require('./models/avatar.js')
 const veg = require('./models/vegetables.js')
 const uploadVeg = require('./models/vegetables.js')
 const vegetables = require('./models/Vegetable.js')
@@ -66,11 +65,11 @@ app.get('/api/logout', (req, res) => {
     res.send(req.user)
 })
 
-app.post('/api/avatar', upload.single('file'), (req, res) => {
+app.post('/api/avatar', upload.upload.single('file'), (req, res) => {
     res.send(req.file)
 })
 
-app.post('/api/upload/vegetable', uploadVeg.single('file'), (req, res) => {
+app.post('/api/upload/vegetable', uploadVeg.uploadVeg.single('file'), (req, res) => {
     res.send(req.file)
 })
 
@@ -102,7 +101,7 @@ app.get('/api/getvegetables', (req, res) => {
 })
 
 app.get('/api/vegetable/:filename', (req, res) => {
-    veg.files.findOne({filename: req.params.filename}, (err, file) => {
+    uploadVeg.veg.files.findOne({filename: req.params.filename}, (err, file) => {
         if(!file || file.length === 0) {
             res.status(404).json({
                 err: 'no file exists'
@@ -129,7 +128,7 @@ app.post('/api/edit', function (req, res, next) {
 });
 
 app.get('/api/image/:filename', (req, res) => {
-    gfs.files.findOne({filename: req.params.filename}, (err, file) => {
+    upload.gfs.files.findOne({filename: req.params.filename}, (err, file) => {
         if(!file || file.length === 0) {
             res.status(404).json({
                 err: 'no file exists'
