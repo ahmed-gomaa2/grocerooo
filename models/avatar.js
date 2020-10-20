@@ -8,15 +8,15 @@ const multer =  require("multer")
 
 const conn = mongoose.createConnection(mongoURI.mongoURI)
 
-let gfs;
+let gfs = {grid: undefined};
 
 conn.once('open', () => {
-    gfs = Grid(conn.db, mongoose.mongo)
-    gfs.collection('avatars')
+    gfs.grid = Grid(conn.db, mongoose.mongo)
+    gfs.grid.collection('avatars')
 })
 
 const storage = new GridFsStorage({
-    url: mongoURI,
+    url: mongoURI.mongoURI,
     file: (req, file) => {
         return new Promise((resolve, reject) => {
             crypto.randomBytes(16, (err, buf) => {

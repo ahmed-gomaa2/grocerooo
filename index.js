@@ -31,7 +31,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
 
-mongoose.connect(mongoURI)
+mongoose.connect(mongoURI.mongoURI)
 
 
 app.post("/api/register", function(req, res){
@@ -101,15 +101,17 @@ app.get('/api/getvegetables', (req, res) => {
 })
 
 app.get('/api/vegetable/:filename', (req, res) => {
-    uploadVeg.veg.files.findOne({filename: req.params.filename}, (err, file) => {
+    const veg = uploadVeg.veg;
+    veg.grid.files.findOne({filename: req.params.filename}, (err, file) => {
         if(!file || file.length === 0) {
             res.status(404).json({
                 err: 'no file exists'
             })
         }
 
-        if(file.contentType === 'image/jpeg' || file.contentType === 'image/png' || contentType === 'image/jpg') {
-            const readStream = veg.createReadStream(file.filename)
+        if(file.contentType === 'image/jpeg' || file.contentType === 'image/png' || file.contentType === 'image/jpg') {
+            console.log(file)
+            const readStream = veg.grid.createReadStream(file.filename)
             readStream.pipe(res)
         }else {
             res.status(404).json({
@@ -128,15 +130,16 @@ app.post('/api/edit', function (req, res, next) {
 });
 
 app.get('/api/image/:filename', (req, res) => {
-    upload.gfs.files.findOne({filename: req.params.filename}, (err, file) => {
+    upload.gfs.grid.files.findOne({filename: req.params.filename}, (err, file) => {
         if(!file || file.length === 0) {
             res.status(404).json({
                 err: 'no file exists'
             })
         }
 
-        if(file.contentType === 'image/jpeg' || file.contentType === 'image/png') {
-            const readStream = gfs.createReadStream(file.filename)
+        if(file.contentType === 'image/jpeg' || file.contentType === 'image/png'
+        || file.contentType === 'image/jpg') {
+            const readStream = upload.gfs.grid.createReadStream(file.filename)
             readStream.pipe(res)
         }else {
             res.status(404).json({

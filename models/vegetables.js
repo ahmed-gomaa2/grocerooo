@@ -8,15 +8,15 @@ const multer = require("multer")
 
 const conn = mongoose.createConnection(vegetablesMongoURI.vegetablesMongoURI)
 
-let veg;
+let veg = {grid: undefined};
 
 conn.once('open', () => {
-    veg = Grid(conn.db, mongoose.mongo)
-    veg.collection('vegetables')
+    veg.grid = Grid(conn.db, mongoose.mongo)
+    veg.grid.collection('vegetables')
 })
 
 const storage = new GridFsStorage({
-    url: vegetablesMongoURI,
+    url: vegetablesMongoURI.vegetablesMongoURI,
     file: (req, file) => {
         return new Promise((resolve, reject) => {
             crypto.randomBytes(16, (err, buf) => {
@@ -38,7 +38,7 @@ const storage = new GridFsStorage({
 
 module.exports = {
     uploadVeg:multer({storage}),
-    veg
+    veg:veg
 }
 
 
