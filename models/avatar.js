@@ -6,7 +6,7 @@ const crypto =  require("crypto")
 const path =  require("path")
 const multer =  require("multer")
 
-const conn = mongoose.createConnection(mongoURI)
+const conn = mongoose.createConnection(mongoURI.mongoURI)
 
 let gfs;
 

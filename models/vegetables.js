@@ -6,7 +6,7 @@ const crypto = require("crypto")
 const path = require("path")
 const multer = require("multer")
 
-const conn = mongoose.createConnection(vegetablesMongoURI)
+const conn = mongoose.createConnection(vegetablesMongoURI.vegetablesMongoURI)
 
 export let veg;
 
