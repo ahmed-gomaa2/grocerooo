@@ -8,7 +8,7 @@ const multer = require("multer")
 
 const conn = mongoose.createConnection(vegetablesMongoURI.vegetablesMongoURI)
 
-export let veg;
+let veg;
 
 conn.once('open', () => {
     veg = Grid(conn.db, mongoose.mongo)
