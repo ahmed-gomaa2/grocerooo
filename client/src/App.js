@@ -29,7 +29,9 @@ function App(props) {
   }
 
   useEffect(() => {
-    props.gettingUserLists()
+    if(props.user) {
+      props.gettingUserLists()
+    }
   }, [props.user])
 
   useEffect(() => {
@@ -39,7 +41,6 @@ function App(props) {
   return (
     <div className="app">
       <BrowserRouter style={{display: 'flex'}}>
-          <Route exact component={() => <List listOpen={list} openList={openList} />}/>
           <Route exact component={() => <Header open={openMenu} />} />
           <Route exact component={() => <Sidebar open={open}  openMenu={openMenu}/>} />
           <Route exact path={'/'} component={Home} />
@@ -50,7 +51,10 @@ function App(props) {
           <Route exact path='/list/items' component={() => <ListItems />} />
           <Route exact path='/create/vegetable' component={()=> <CreateVegetable />} />
           {
-            props.user?.username && <Route exact path={'/profile'} component={Profile}/>
+            props.user?.username &&( [
+            <Route exact path={'/profile'} component={Profile}/>,
+            <Route exact component={() => <List listOpen={list} openList={openList} />}/>
+          ])
           }
       </BrowserRouter>
     </div>

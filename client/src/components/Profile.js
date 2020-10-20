@@ -47,8 +47,10 @@ const Profile = (props) => {
                     axios.post('/api/edit', {
                         file: res.data.filename
                     })
+            }).then(() => {
+                console.log(props.user)
+                props.gettingUser()
             })
-
         }
     }
 

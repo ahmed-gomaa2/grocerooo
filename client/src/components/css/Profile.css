@@ -1,5 +1,5 @@
 .profile {
-    height: calc(100vh - 60px);
+    height: auto;
     display: flex;
     flex-direction: column;
     padding: 20px 30px;

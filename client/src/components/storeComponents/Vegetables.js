@@ -13,9 +13,12 @@ const Vegetables = (props) => {
     return (
         <div className='vegetables'>
             <div onClick={handleListAdding} className={props.listOpen ? 'list__close' : ''}></div>
-            {props.vegetables?.map(vegetable => (
-                <VegetableCard vegetable= {vegetable} listOpen={props.listOPen} openList={props.openList}/>
-            ))}
+            {props.vegetables?.map(vegetable =>{
+                if(vegetable.section === 'vegetables') {
+                    return <VegetableCard vegetable= {vegetable} listOpen={props.listOPen} openList={props.openList}/>  
+                }
+            }
+            )}
             
         </div>
     );

@@ -26,6 +26,19 @@ const Header = (props) => {
         props.open()
     }
 
+    const renderLists = () => {
+        if(props.user && props.user.username && props.lists) {
+            return <div className='header__dropDown'>
+                <button className='header__dropbtn'>Lists<ExpandMoreIcon/></button>
+                <div className='header__lists'>
+                    {props.lists.map(list => (
+                        <ListDropDown list={list} />
+                    ))}
+                </div>
+            </div>
+        }
+    }
+
     return (
         <div className={'header'}>
             <div className="header__left">
@@ -38,18 +51,7 @@ const Header = (props) => {
             </div>
 
             <div className={'header__right'}>
-                {props.lists ? (
-                    <div className='header__dropDown'>
-                    <button className='header__dropbtn'>Lists<ExpandMoreIcon/></button>
-                    <div className='header__lists'>
-                        {props.lists?.map(list => (
-                            <ListDropDown list={list} />
-                        ))}
-                        <Link><AddIcon /><p>Add New List</p></Link>
-                    </div>
-                </div>
-                ) : ''}
-                
+                {renderLists()}
                 <ul className={`header__options ${menu && 'header__optionsActive'}`}>
                     {props?.user?.username ? (
                         <li className="header__option">
@@ -66,7 +68,6 @@ const Header = (props) => {
                 </ul>
 
                 {props.user && <Link to={'/profile'} className="header__avatar">
-                    <p>{props.user?.username}</p>
                     <Avatar src={`/api/image/${props.user?.file ? props.user.file : ''}`} />
                 </Link>}
 

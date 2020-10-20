@@ -9,6 +9,9 @@ export default function (state=null, action) {
         case 'LOGOUT_USER':
             console.log({user: action.payload})
             return action.payload
+        case 'GETTING_USER_INFO':
+            console.log(action.payload)
+            return action.payload
         default:
             return state
     }

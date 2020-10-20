@@ -44,6 +44,15 @@ export const addingList = list => async dispatch =>  {
     })
 }
 
+export const gettingUser = () => async dispatch => {
+    const res = await axios.get('/api/getuser')
+
+    dispatch({
+        type:'GETTING_USER_INGO',
+        payload: res.data
+    })
+}
+
 
 export const gettingUserLists = () => async dispatch => {
     const res = await axios.get('/api/user/lists')

@@ -42,7 +42,6 @@ app.post("/api/register", function(req, res){
             const newUser = new User({
                 username: req.body.username,
                 email: req.body.email,
-                // file: req.body.file
             });
             User.register(newUser, req.body.password, function(err, user){
                 if(err){
@@ -65,6 +64,10 @@ app.get('/api/logout', (req, res) => {
     res.send(req.user)
 })
 
+app.get('/api/getuser', (req, res) => {
+    res.send(req.user)
+})
+
 app.post('/api/avatar', upload.upload.single('file'), (req, res) => {
     res.send(req.file)
 })
@@ -78,7 +81,8 @@ app.post('/api/create/vegetable', (req, res) => {
         name: req.body.name,
         price: req.body.price,
         duration: req.body.duration,
-        image: req.body.file
+        image: req.body.file,
+        section: req.body.section
     }
 
     Vegetables.create(newVegetable, (err, vegetable) => {
@@ -110,7 +114,6 @@ app.get('/api/vegetable/:filename', (req, res) => {
         }
 
         if(file.contentType === 'image/jpeg' || file.contentType === 'image/png' || file.contentType === 'image/jpg') {
-            console.log(file)
             const readStream = veg.grid.createReadStream(file.filename)
             readStream.pipe(res)
         }else {
@@ -209,7 +212,6 @@ app.get('/api/user/lists', (req, res) => {
         if(err) {
             res.status(404).send("can't find lists")
         }else{
-            console.log(lists)
             res.json(lists)
         }
     })

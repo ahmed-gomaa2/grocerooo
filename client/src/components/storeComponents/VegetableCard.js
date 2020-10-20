@@ -1,18 +1,24 @@
 import React from 'react';
 import {connect} from 'react-redux'
+import {useHistory} from 'react-router-dom'
 import * as actions from '../../actions'
 import '../css/storeComponents/VegetableCard.css'
 
-const VegetableCard = ({vegetable, openList, addedToList}) => {
+const VegetableCard = ({vegetable, openList, addedToList, user}) => {
     const [number, setNumber] = React.useState(1)
-
+    const history = useHistory()
     const handleListAdding = () => {
-        const info = {
-            name: vegetable.name,
-            amount: number
+        if(user && user.username) {
+            const info = {
+                name: vegetable.name,
+                amount: number
+            }
+            addedToList(info)
+            openList()
+        }else{
+            history.push('/login')
         }
-        addedToList(info)
-        openList()
+        
     }
 
     const handleNumberChange = e => {
@@ -32,4 +38,10 @@ const VegetableCard = ({vegetable, openList, addedToList}) => {
     );
 };
 
-export default connect(null, actions) (VegetableCard);
+const mapStateToProps = state => {
+    return {
+        user: state.user
+    }
+}
+
+export default connect(mapStateToProps, actions) (VegetableCard);

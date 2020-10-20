@@ -9,6 +9,7 @@ const CreateVegetable = (props) => {
     const [price, setPrice] = React.useState('')
     const [duration, setDuration] = React.useState('')
     const [image, setImage] = React.useState(null)
+    const [section, setSection]= React.useState('vegetable')
 
 
     const handleNameChange = e => {
@@ -26,6 +27,10 @@ const CreateVegetable = (props) => {
         }
     }
 
+    const handleSectionChange = e => {
+        setSection(e.target.value)
+        console.log(section)
+    }
     const handleFormSubmit = e => {
         e.preventDefault()
         if(image) {
@@ -44,7 +49,8 @@ const CreateVegetable = (props) => {
                     name: name,
                     price: price,
                     duration: duration,
-                    file: res.data.filename
+                    file: res.data.filename,
+                    section: section
                 }
                 props.createVegetable(info)
             }).then(() => {
@@ -56,21 +62,37 @@ const CreateVegetable = (props) => {
         <div className='createVegetable'>
             <form onSubmit={handleFormSubmit} className="signup__form" autoComplete={'off'}>
                 <div className="signup__field">
-                    <label htmlFor="">Your Name:</label>
+                    <label htmlFor="">Name:</label>
                     <input type="text" placeholder={'vegetable name'} autoComplete={'off'} value={name} onChange={handleNameChange}/>
                 </div>
                 <div className="signup__field">
-                    <label htmlFor="">Your Email:</label>
+                    <label htmlFor="">Price:</label>
                     <input type="text" autoComplete={'off'} placeholder={'Price'} value={price} onChange={handlePriceChange}/>
 
                 </div>
                 <div className="signup__field">
-                    <label htmlFor="">Password:</label>
+                    <label htmlFor="">Duration:</label>
                     <input type="text" autoComplete={'off'} placeholder={'Duration'} value={duration} onChange={handleDurationChange}/>
 
                 </div>
                 <div className="signup__field">
-                    <label htmlFor="">Password:</label>
+                    <label htmlFor="">Section:</label>
+                    {/* <input type="type" onChange={handleImageChange}/> */}
+
+                    <select onChange={handleSectionChange} id='sections' value={section}>
+                        <option>vegetables</option>
+                        <option>fruits</option>
+                        <option>drinks</option>
+                        <option>Bakery</option>
+                        <option>Snacks</option>
+                        <option>meat</option>
+                        <option>fish</option>
+                        <option>dairy</option>
+                    </select>
+                </div>
+
+                <div className="signup__field">
+                    <label htmlFor="">Image</label>
                     <input type="file" onChange={handleImageChange}/>
                 </div>
 
