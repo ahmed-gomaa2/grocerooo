@@ -1,10 +1,10 @@
-import {mongoURI} from "../keys.js";
-import mongoose from 'mongoose'
-import Grid from "gridfs-stream";
-import GridFsStorage from "multer-gridfs-storage";
-import crypto from "crypto";
-import path from "path";
-import multer from "multer";
+const {mongoURI} =  require("../keys.js")
+const mongoose =  require('mongoose')
+const Grid =  require("gridfs-stream")
+const GridFsStorage =  require("multer-gridfs-storage")
+const crypto =  require("crypto")
+const path =  require("path")
+const multer =  require("multer")
 
 const conn = mongoose.createConnection(mongoURI)
 

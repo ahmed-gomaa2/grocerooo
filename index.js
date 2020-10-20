@@ -1,20 +1,19 @@
-import express from 'express'
-import methodOverride from 'method-override'
-import bodyParser from 'body-parser'
-import {upload} from "./models/avatar.js";
-import passport from 'passport'
-import User from './models/User.js'
-import LocalStrategy from 'passport-local'
-import session from 'express-session'
-import {mongoURI} from "./keys.js";
-import mongoose from 'mongoose'
-import {gfs} from './models/avatar.js'
-import {veg} from './models/vegetables.js'
-import {uploadVeg} from './models/vegetables.js'
-import vegetables from './models/Vegetable.js'
-import List from './models/Lists.js'
-import path from 'path'
-import Vegetables from './models/Vegetable.js';
+const express = require('express');
+const methodOverride = require('method-override');
+const bodyParser = require( 'body-parser');
+const {upload} = require("./models/avatar.js");
+const passport = require('passport')
+const User = require('./models/User.js')
+const LocalStrategy = require('passport-local')
+const session = require('express-session')
+const {mongoURI} = require("./keys.js");
+const mongoose = require('mongoose')
+const {gfs} = require('./models/avatar.js')
+const {veg} = require('./models/vegetables.js')
+const {uploadVeg} = require('./models/vegetables.js')
+const vegetables = require('./models/Vegetable.js')
+const List = require('./models/Lists.js')
+const Vegetables = require('./models/Vegetable.js');
 
 const app = express()
 
