@@ -152,12 +152,14 @@
 }
 
 .header__lists {
-    display: none;
+    visibility: hidden;
     position: absolute;
     background-color: red;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
+    opacity: 0;
+    transition: all ease-in-out .2s;
 }
 
 .header__lists a {
@@ -176,7 +178,8 @@
 
 
 .header__dropDown:hover .header__lists {
-    display: block;
+    visibility: visible;
+    opacity: 1;
 }
 
 .header__dropDown:hover .header__dropbtn {

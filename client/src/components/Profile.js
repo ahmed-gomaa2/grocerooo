@@ -47,9 +47,6 @@ const Profile = (props) => {
                     axios.post('/api/edit', {
                         file: res.data.filename
                     })
-            }).then(() => {
-                console.log(props.user)
-                props.gettingUser()
             })
         }
     }
@@ -74,11 +71,11 @@ const Profile = (props) => {
             <div className="profile__body">
                 <div className="profile__bodyRow">
                     <p>Username:</p>
-                    <h3>{props.user?.username}</h3>
+                    <p>{props.user?.username}</p>
                 </div>
                 <div className="profile__bodyRow">
                     <p>Email:</p>
-                    <h3>{props.user?.email}</h3>
+                    <p>{props.user?.email}</p>
                 </div>
 
             </div>

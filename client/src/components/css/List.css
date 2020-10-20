@@ -16,9 +16,13 @@
     margin: 20px 0; 
 
 }
+#listid {
+    width: 150px;
+}
 
 .list__form > input {
     height: 30px;
+    width: 150px;
 }
 
 
