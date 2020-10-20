@@ -1,4 +1,4 @@
-const {mongoURI} =  require("../keys.js")
+const mongoURI =  require("../keys.js")
 const mongoose =  require('mongoose')
 const Grid =  require("gridfs-stream")
 const GridFsStorage =  require("multer-gridfs-storage")
@@ -8,7 +8,7 @@ const multer =  require("multer")
 
 const conn = mongoose.createConnection(mongoURI)
 
-export let gfs;
+let gfs;
 
 conn.once('open', () => {
     gfs = Grid(conn.db, mongoose.mongo)
@@ -36,8 +36,9 @@ const storage = new GridFsStorage({
     }
 })
 
-
-
-export const upload = multer({storage})
+module.exports = {
+    upload:multer({storage}),
+    gfs
+}
 
 

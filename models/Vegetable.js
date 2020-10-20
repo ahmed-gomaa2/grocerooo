@@ -9,4 +9,4 @@ const vegetableSchema = new mongoose.Schema({
 
 const Vegetables = mongoose.model('Vegetable', vegetableSchema)
 
-export default Vegetables;
+module.exports =  Vegetables;

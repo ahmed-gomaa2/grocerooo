@@ -1,4 +1,4 @@
-const {vegetablesMongoURI} = require("../keys.js")
+const vegetablesMongoURI = require("../keys.js")
 const mongoose = require('mongoose')
 const Grid = require("gridfs-stream")
 const GridFsStorage = require("multer-gridfs-storage")
@@ -36,6 +36,9 @@ const storage = new GridFsStorage({
     }
 })
 
-export const uploadVeg = multer({storage})
+module.exports = {
+    uploadVeg:multer({storage}),
+    veg
+}
 
 
