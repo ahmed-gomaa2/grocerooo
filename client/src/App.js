@@ -14,6 +14,7 @@ import List from './components/List'
 import ListItems from './components/storeComponents/ListItems'
 import Fruits from './components/storeComponents/Fruits'
 import CreateVegetable from './components/CreateVegetable';
+import Meat from "./components/storeComponents/Meat";
 
 function App(props) {
 
@@ -50,11 +51,13 @@ function App(props) {
           <Route exact path='/fruits' component={() => <Fruits listOpen={list} openList={openList} />} />
           <Route exact path='/list/items' component={() => <ListItems />} />
           <Route exact path='/create/vegetable' component={()=> <CreateVegetable />} />
+          <Route exact path={'/meat'} component={() => <Meat listOpen={list} openList={openList} />} />
+
           {
             props.user?.username &&( [
-            <Route exact path={'/profile'} component={Profile}/>,
-            <Route exact component={() => <List listOpen={list} openList={openList} />}/>
-          ])
+                <Route exact path={'/profile'} component={Profile}/>,
+                <Route exact component={() => <List listOpen={list} openList={openList} />}/>,
+            ])
           }
       </BrowserRouter>
     </div>

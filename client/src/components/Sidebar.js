@@ -17,24 +17,18 @@ const Sidebar = (props) => {
             <Link onClick={props.openMenu} to='/fruits' className='sidebar__row'>
                 Fruits
             </Link>
-            <Link className='sidebar__row'>
-                Drinks
-            </Link>
-            <Link className='sidebar__row'>
-                Bakery
-            </Link>
-            <Link className='sidebar__row'>
-                Snacks
-            </Link>
-            <Link className='sidebar__row'>
+            <Link onClick={props.openMenu} to={'/meat'} className='sidebar__row'>
                 Meat
             </Link>
-            <Link className='sidebar__row'>
-                Fish
-            </Link>
-            <Link className='sidebar__row'>
-                Dairy
-            </Link>
+            {/*<Link className='sidebar__row'>*/}
+            {/*    Bakery*/}
+            {/*</Link>*/}
+            {/*<Link className='sidebar__row'>*/}
+            {/*    Fish*/}
+            {/*</Link>*/}
+            {/*<Link className='sidebar__row'>*/}
+            {/*    Dairy*/}
+            {/*</Link>*/}
 
 
         </div>
